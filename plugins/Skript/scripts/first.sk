@@ -1,0 +1,41 @@
+command /teleportbeam:
+    trigger:
+        set {_player} to player
+        set {_location} to player's eye location # Начальная позиция (глаза игрока)
+        set {_direction} to vector from {_location} to {_location} offset by 0, 0, 1 # Направление взгляда
+
+        set {_points::*} to array() # Список для хранения случайных точек
+
+        loop 4 times:
+            set {_distance} to random number between 1 and 10 # Случайная дистанция (1-10 блоков)
+            set {_angleYaw} to random number between -15 and 15 # Случайный угол расхождения по оси Y (влево/вправо)
+            set {_anglePitch} to random number between -5 and 5 # Случайный угол по оси X (вверх/вниз)
+
+            # Создаём вектор смещения
+            set {_offset} to {_direction} vector multiplied by {_distance}
+            rotate {_offset} around y-axis by {_angleYaw} degrees
+            rotate {_offset} around x-axis by {_anglePitch} degrees
+
+            # Создаём финальную точку
+            set {_finalLocation} to {_location} offset by {_offset}
+            add {_finalLocation} to {_points::*}
+
+        # Последовательный телепорт игрока на точки
+        loop {_points::*}:
+            teleport {_player} to loop-value
+            spawn particle "end_rod" at loop-value offset by 0, 0, 0 speed 0.1 count 20
+            wait 1 second
+on join:
+    send "Добро пожаловать на сервер, %player%!" to player
+    broadcast "%player% зашел на сервер!"
+on death of zombie:
+    if attacker is a player:
+        add 2 to {zombiesKilled::%attacker%}
+        if {zombiesKilled::%attacker%} >= 10:
+            send "Квест выполнен! Вы убили 10 зомби." to attacker
+            give attacker 5 diamonds
+            clear {zombiesKilled::%attacker%}
+        else:
+            send "Вы убили %number of {zombiesKilled::%attacker%}% из 10 зомби." to attacker
+        cancel event
+        broadcast %statistic of attacker play_one_minute%

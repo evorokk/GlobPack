@@ -1,0 +1,51 @@
+info:
+  namespace: briz
+items:
+  red_block:
+    display_name: Кто прочитал тот гей
+    resource:
+      material: PAPER
+      generate: false
+      model_path: "glob:decorations/small_rocks"
+    specific_properties:
+      block:
+        placed_model:
+          type: REAL_WIRE
+          break_particles: ITEM
+          custom_variants:
+            variant1:
+              model: "glob:decorations/small_rocks"
+              y: 90
+            variant2:
+              model: "glob:decorations/small_rocks"
+              y: -180
+            variant3:
+              model: "glob:decorations/small_rocks"
+              y: -90
+            variant4:
+              model: "glob:decorations/small_rocks"
+              y: 180
+  stairs_test:
+    display_name: Кто прочитал тот гей
+    resource:
+      material: PAPER
+      generate: false
+      model_path: "glob:blocks/acacia_stairs"
+    specific_properties:
+      block:
+        placed_model:
+          type: REAL_NOTE
+          break_particles: ITEM
+          custom_variants:
+            variant_1:
+              model: "glob:blocks/acacia_stairs"
+              y: 90
+            variant_2:
+              model: "glob:blocks/acacia_stairs"
+              y: -180
+            variant_3:
+              model: "glob:blocks/acacia_stairs"
+              y: -90
+            variant_4:
+              model: "glob:blocks/acacia_stairs"
+              y: 180

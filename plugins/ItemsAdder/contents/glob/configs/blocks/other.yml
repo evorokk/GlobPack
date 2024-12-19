@@ -1,0 +1,14 @@
+info:
+  namespace: briz
+items:
+  latern1:
+    display_name: Кто прочитал тот гей
+    resource:
+      material: PAPER
+      generate: false
+      model_path: "glob:blocks/acacia_stairs"
+    specific_properties:
+      block:
+        placed_model:
+          type: REAL_NOTE
+          break_particles: ITEM
